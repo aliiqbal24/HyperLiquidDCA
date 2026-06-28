@@ -2,9 +2,16 @@
 
 ## Vercel API
 
-Deploy `apps/api` as the Vercel project. For the Vercel Hobby/free plan, keep `apps/api/vercel.json` as-is; it runs the cloud executor once per day at 00:00 UTC. Vercel Hobby cron jobs cannot run every minute.
+Deploy from the repository root as the Vercel project. The project settings should be:
 
-When you upgrade to Vercel Pro, replace `apps/api/vercel.json` with `apps/api/vercel.pro.json` before deploying to enable minute-level cloud execution.
+- Framework: Next.js
+- Build command: `npm run build -w @hypedca/api`
+- Install command: `npm install`
+- Output directory: `apps/api/.next`
+
+For the Vercel Hobby/free plan, keep `vercel.json` as-is; it runs the cloud executor once per day at 00:00 UTC. Vercel Hobby cron jobs cannot run every minute.
+
+When you upgrade to Vercel Pro, replace `vercel.json` with `vercel.pro.json` before deploying to enable minute-level cloud execution.
 
 Set these environment variables:
 
@@ -37,7 +44,7 @@ Create `.env.production.local` from `.env.example`, fill the real values, then v
 npm run check:vercel-env
 ```
 
-After `vercel link` has connected `apps/api` to the Vercel project, push env vars:
+After `vercel link` has connected the repo root to the Vercel project, push env vars:
 
 ```bash
 npm run push:vercel-env -- .env.production.local production
@@ -81,13 +88,13 @@ If `HYPEDCA_API_URL` is set when running `npm run setup:stripe`, the script also
 
 ## Cron
 
-`apps/api/vercel.json` configures a daily cron against `/api/cron/execute` for Vercel Hobby compatibility. The route rejects requests unless Vercel sends:
+`vercel.json` configures a daily cron against `/api/cron/execute` for Vercel Hobby compatibility. The route rejects requests unless Vercel sends:
 
 ```txt
 Authorization: Bearer ${CRON_SECRET}
 ```
 
-For minute-level execution on Vercel Pro, deploy with `apps/api/vercel.pro.json`.
+For minute-level execution on Vercel Pro, deploy with `vercel.pro.json`.
 
 ## GitHub Actions
 

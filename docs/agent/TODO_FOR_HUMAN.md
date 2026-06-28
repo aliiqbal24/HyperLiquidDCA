@@ -6,7 +6,7 @@ These are the remaining items that require the project owner rather than a codin
 
 - Create Chrome Web Store developer account.
 - Choose final domain.
-- Create/link a Vercel project for `apps/api`. Current connected Vercel account had no projects when checked.
+- Keep the linked Vercel project `hypedca-api` configured to deploy from the repo root with build command `npm run build -w @hypedca/api` and output directory `apps/api/.next`.
 - Create Neon Postgres database, preferably through Vercel Marketplace, then run `npm run setup:db`.
 - Rotate any Stripe secret keys that were pasted into chat or logs.
 - Run `npm run setup:stripe` with `STRIPE_SECRET_KEY` set. This creates/reuses the HypeDCA Cloud $9/month price and prints `STRIPE_PRICE_CLOUD_MONTHLY`.

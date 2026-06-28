@@ -6,6 +6,7 @@ dist/
 coverage/
 .vite/
 .next/
+.vercel/
 *.tsbuildinfo
 hypedca.local.db
 *.log

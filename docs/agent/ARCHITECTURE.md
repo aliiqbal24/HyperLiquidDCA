@@ -38,7 +38,7 @@ Rules:
 - Hosting: Vercel, because it gives the smallest owner-operated surface for Next.js routes, secrets, and Cron.
 - Database: Neon Postgres through Vercel Marketplace or direct Neon. Initialize it with `apps/api/db/schema.sql`.
 - Billing: Stripe Billing through Checkout Sessions, Customer Portal, and webhooks. The single plan is `HypeDCA Cloud`, `$9/month`, lookup key `hypedca_cloud_monthly_9_usd`.
-- Scheduling: Vercel Cron calls `GET /api/cron/execute` with `Authorization: Bearer ${CRON_SECRET}`. Hobby/free deployment uses the daily cron in `apps/api/vercel.json`; Pro deployment can use `apps/api/vercel.pro.json` for minute-level checks.
+- Scheduling: Vercel Cron calls `GET /api/cron/execute` with `Authorization: Bearer ${CRON_SECRET}`. Hobby/free deployment uses the daily cron in root `vercel.json`; Pro deployment can use root `vercel.pro.json` for minute-level checks.
 
 ## Hyperliquid
 

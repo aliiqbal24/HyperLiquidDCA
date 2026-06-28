@@ -44,7 +44,7 @@ Run the legacy worker once:
 npm run dev:worker
 ```
 
-The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, triggered by Vercel Cron. The checked-in Vercel Hobby config runs once per day; `apps/api/vercel.pro.json` is ready for minute-level checks on Vercel Pro.
+The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, triggered by Vercel Cron. The checked-in Vercel Hobby config runs once per day; `vercel.pro.json` is ready for minute-level checks on Vercel Pro.
 
 ## Deployment
 
