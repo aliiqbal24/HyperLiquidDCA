@@ -709,7 +709,7 @@ function SettingsPanel() {
         <h2>Cloud execution</h2>
       </div>
       <p className="notice">
-        Cloud schedules run from HypeDCA infrastructure every minute. {HYPEDCA_CLOUD_PLAN.name} is ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/month and includes up to{" "}
+        Cloud schedules run from HypeDCA infrastructure on the hosted execution schedule. {HYPEDCA_CLOUD_PLAN.name} is ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/month and includes up to{" "}
         {HYPEDCA_CLOUD_PLAN.dailyCloudPurchases} cloud purchases per day.
       </p>
       <button className="primary full" type="button" onClick={() => void openCheckout()}>

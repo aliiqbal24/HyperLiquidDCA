@@ -44,13 +44,13 @@ Run the legacy worker once:
 npm run dev:worker
 ```
 
-The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, triggered by Vercel Cron.
+The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, triggered by Vercel Cron. The checked-in Vercel Hobby config runs once per day; `apps/api/vercel.pro.json` is ready for minute-level checks on Vercel Pro.
 
 ## Deployment
 
 1. Create a Neon Postgres database and run `apps/api/db/schema.sql`.
 2. Run `npm run setup:stripe` with `STRIPE_SECRET_KEY` set to create the $9/month HypeDCA Cloud product and price.
-3. Set the API environment variables from `.env.example` in Vercel.
+3. Generate secrets with `npm run setup:secrets`, then set the API environment variables from `.env.example` in Vercel.
 4. Deploy `apps/api` as the Vercel project.
 5. Set `VITE_API_BASE_URL` for the extension build.
 6. Run `npm run package -w @hypedca/extension` and upload `release/hypedca-extension.zip` to the Chrome Web Store.

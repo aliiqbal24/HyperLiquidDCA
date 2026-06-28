@@ -14,11 +14,18 @@
     "dev:extension": "npm run dev -w @hypedca/extension",
     "dev:api": "npm run dev -w @hypedca/api",
     "dev:worker": "npm run dev -w @hypedca/worker",
-    "setup:stripe": "node scripts/setup-stripe.mjs"
+    "setup:stripe": "node scripts/setup-stripe.mjs",
+    "setup:secrets": "node scripts/generate-secrets.mjs",
+    "setup:db": "node scripts/apply-neon-schema.mjs",
+    "check:vercel-env": "node scripts/check-vercel-env.mjs",
+    "push:vercel-env": "node scripts/push-vercel-env.mjs",
+    "vercel:build:api": "vercel build --prod --cwd apps/api",
+    "vercel:deploy:api": "vercel deploy --prebuilt --prod --cwd apps/api"
   },
   "devDependencies": {
     "archiver": "^7.0.1",
     "@vitejs/plugin-react": "^4.7.0",
+    "@neondatabase/serverless": "^1.0.2",
     "@types/node": "^22.10.7",
     "pngjs": "^7.0.0",
     "stripe": "^22.3.0",

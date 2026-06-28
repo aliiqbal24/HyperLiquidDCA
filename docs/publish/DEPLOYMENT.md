@@ -2,7 +2,11 @@
 
 ## Vercel API
 
-Deploy `apps/api` as the Vercel project. Set these environment variables:
+Deploy `apps/api` as the Vercel project. For the Vercel Hobby/free plan, keep `apps/api/vercel.json` as-is; it runs the cloud executor once per day at 00:00 UTC. Vercel Hobby cron jobs cannot run every minute.
+
+When you upgrade to Vercel Pro, replace `apps/api/vercel.json` with `apps/api/vercel.pro.json` before deploying to enable minute-level cloud execution.
+
+Set these environment variables:
 
 - `DATABASE_URL`
 - `HYPEDCA_ENCRYPTION_KEY_BASE64`
@@ -11,7 +15,40 @@ Deploy `apps/api` as the Vercel project. Set these environment variables:
 - `STRIPE_WEBHOOK_SECRET`
 - `STRIPE_PRICE_CLOUD_MONTHLY`
 
-Initialize Neon by running `apps/api/db/schema.sql` in the Neon SQL editor before accepting cloud schedules.
+Initialize Neon by running:
+
+```bash
+npm run setup:db
+```
+
+The script reads `DATABASE_URL` from your shell, `.env.local`, or `.env.production.local`, then applies `apps/api/db/schema.sql` and `apps/api/db/0001_add_execution_log_status.sql`.
+
+## Local Bootstrap
+
+Generate app secrets:
+
+```bash
+npm run setup:secrets
+```
+
+Create `.env.production.local` from `.env.example`, fill the real values, then verify it:
+
+```bash
+npm run check:vercel-env
+```
+
+After `vercel link` has connected `apps/api` to the Vercel project, push env vars:
+
+```bash
+npm run push:vercel-env -- .env.production.local production
+```
+
+Build and deploy the API:
+
+```bash
+npm run vercel:build:api
+npm run vercel:deploy:api
+```
 
 ## Stripe
 
@@ -44,8 +81,20 @@ If `HYPEDCA_API_URL` is set when running `npm run setup:stripe`, the script also
 
 ## Cron
 
-`apps/api/vercel.json` configures a one-minute cron against `/api/cron/execute`. The route rejects requests unless Vercel sends:
+`apps/api/vercel.json` configures a daily cron against `/api/cron/execute` for Vercel Hobby compatibility. The route rejects requests unless Vercel sends:
 
 ```txt
 Authorization: Bearer ${CRON_SECRET}
 ```
+
+For minute-level execution on Vercel Pro, deploy with `apps/api/vercel.pro.json`.
+
+## GitHub Actions
+
+`.github/workflows/vercel-api.yml` deploys `apps/api` on pushes to `main`. Add these GitHub repository secrets:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+The IDs are available after linking the Vercel project in `apps/api/.vercel/project.json`.
