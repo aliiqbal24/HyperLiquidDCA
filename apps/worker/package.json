@@ -1,0 +1,16 @@
+{
+  "name": "@hypedca/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/run-once.ts",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/run-once.js"
+  },
+  "dependencies": {
+    "@hypedca/core": "file:../../packages/core",
+    "tsx": "^4.19.2"
+  }
+}

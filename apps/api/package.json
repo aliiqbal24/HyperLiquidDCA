@@ -1,0 +1,22 @@
+{
+  "name": "@hypedca/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 8787",
+    "build": "next build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "next start --hostname 0.0.0.0 --port 8787"
+  },
+  "dependencies": {
+    "@hypedca/core": "file:../../packages/core",
+    "@neondatabase/serverless": "^1.0.2",
+    "drizzle-orm": "^0.45.0",
+    "next": "^16.1.6",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "stripe": "^22.3.0",
+    "zod": "^3.25.76"
+  }
+}

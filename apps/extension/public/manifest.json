@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "HypeDCA",
+  "description": "Independent recurring trade automation for Hyperliquid.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "120",
+  "permissions": ["alarms", "notifications", "storage", "sidePanel"],
+  "host_permissions": ["https://api.hyperliquid.xyz/*", "https://api.hyperliquid-testnet.xyz/*", "http://localhost:8787/*"],
+  "action": {
+    "default_title": "HypeDCA",
+    "default_popup": "index.html"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}
