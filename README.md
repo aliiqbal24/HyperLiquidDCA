@@ -48,9 +48,9 @@ The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, trigg
 
 ## Deployment
 
-1. Create a Neon Postgres database and run `apps/api/db/schema.sql`.
-2. Run `npm run setup:stripe` with `STRIPE_SECRET_KEY` set to create the $9/month HypeDCA Cloud product and price.
-3. Generate secrets with `npm run setup:secrets`, then set the API environment variables from `.env.example` in Vercel.
-4. Deploy `apps/api` as the Vercel project.
+1. Production API is deployed at `https://hypedca-api.vercel.app` on Vercel project `hypedca-api`.
+2. Neon project `hypedca` / `withered-wave-39313525` is provisioned and has the schema applied.
+3. Run `npm run setup:stripe` with `STRIPE_SECRET_KEY` set to create the $9/month HypeDCA Cloud product and price.
+4. Set the remaining Stripe environment variables in Vercel production.
 5. Set `VITE_API_BASE_URL` for the extension build.
 6. Run `npm run package -w @hypedca/extension` and upload `release/hypedca-extension.zip` to the Chrome Web Store.

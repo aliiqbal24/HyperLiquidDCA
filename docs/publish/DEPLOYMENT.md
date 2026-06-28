@@ -9,18 +9,24 @@ Deploy from the repository root as the Vercel project. The project settings shou
 - Install command: `npm install`
 - Output directory: `apps/api/.next`
 
+Current production project:
+
+- Vercel project: `hypedca-api`
+- Production URL: `https://hypedca-api.vercel.app`
+- Neon project: `hypedca` / `withered-wave-39313525`
+
 For the Vercel Hobby/free plan, keep `vercel.json` as-is; it runs the cloud executor once per day at 00:00 UTC. Vercel Hobby cron jobs cannot run every minute.
 
 When you upgrade to Vercel Pro, replace `vercel.json` with `vercel.pro.json` before deploying to enable minute-level cloud execution.
 
 Set these environment variables:
 
-- `DATABASE_URL`
-- `HYPEDCA_ENCRYPTION_KEY_BASE64`
-- `CRON_SECRET`
-- `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `STRIPE_PRICE_CLOUD_MONTHLY`
+- `DATABASE_URL` - already set in Vercel production
+- `HYPEDCA_ENCRYPTION_KEY_BASE64` - already set in Vercel production
+- `CRON_SECRET` - already set in Vercel production
+- `STRIPE_SECRET_KEY` - owner must set after rotating any exposed key
+- `STRIPE_WEBHOOK_SECRET` - owner must set after creating the webhook endpoint
+- `STRIPE_PRICE_CLOUD_MONTHLY` - owner must set from `npm run setup:stripe`
 
 Initialize Neon by running:
 
@@ -75,7 +81,7 @@ With `STRIPE_SECRET_KEY` set, the script creates or reuses:
 Set the webhook endpoint to:
 
 ```txt
-https://your-api-domain/api/v1/billing/webhook
+https://hypedca-api.vercel.app/api/v1/billing/webhook
 ```
 
 Subscribe to:
