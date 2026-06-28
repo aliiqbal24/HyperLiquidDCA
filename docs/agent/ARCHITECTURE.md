@@ -30,13 +30,14 @@ Rules:
 - Use `scheduleId + scheduledFor` as the occurrence lock.
 - Store Hyperliquid API/agent credentials encrypted at rest.
 - Pause schedules when billing is inactive.
+- Enforce HypeDCA Cloud's quota: $9/month, maximum 20 cloud-executed purchases per account per UTC day.
 - Fail and log schedules when credentials are missing or execution has a hard error.
 
 ## Production Cloud Stack
 
 - Hosting: Vercel, because it gives the smallest owner-operated surface for Next.js routes, secrets, and Cron.
 - Database: Neon Postgres through Vercel Marketplace or direct Neon. Initialize it with `apps/api/db/schema.sql`.
-- Billing: Stripe Billing through Checkout Sessions, Customer Portal, and webhooks.
+- Billing: Stripe Billing through Checkout Sessions, Customer Portal, and webhooks. The single plan is `HypeDCA Cloud`, `$9/month`, lookup key `hypedca_cloud_monthly_9_usd`.
 - Scheduling: Vercel Cron calls `GET /api/cron/execute` every minute with `Authorization: Bearer ${CRON_SECRET}`.
 
 ## Hyperliquid

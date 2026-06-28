@@ -13,13 +13,15 @@
     "typecheck": "npm run typecheck -w @hypedca/core && npm run build -w @hypedca/core && npm run typecheck -w @hypedca/api && npm run typecheck -w @hypedca/worker && npm run typecheck -w @hypedca/extension",
     "dev:extension": "npm run dev -w @hypedca/extension",
     "dev:api": "npm run dev -w @hypedca/api",
-    "dev:worker": "npm run dev -w @hypedca/worker"
+    "dev:worker": "npm run dev -w @hypedca/worker",
+    "setup:stripe": "node scripts/setup-stripe.mjs"
   },
   "devDependencies": {
     "archiver": "^7.0.1",
     "@vitejs/plugin-react": "^4.7.0",
     "@types/node": "^22.10.7",
     "pngjs": "^7.0.0",
+    "stripe": "^22.3.0",
     "typescript": "^5.8.3",
     "vite": "^7.3.6",
     "vitest": "^3.2.4"

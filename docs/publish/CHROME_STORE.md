@@ -21,4 +21,4 @@ Use clear independent-brand language:
 - HypeDCA is independent and is not affiliated with or endorsed by Hyperliquid.
 - Users should create limited API/agent wallet credentials and never enter seed phrases or master wallet keys.
 - Browser mode runs only while the browser/device can process extension alarms.
-- Cloud mode requires a paid subscription because HypeDCA signs scheduled orders from server infrastructure.
+- Cloud mode requires a paid $9/month subscription and includes up to 20 cloud-executed purchases per day because HypeDCA signs scheduled orders from server infrastructure.

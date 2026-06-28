@@ -9,17 +9,24 @@ Deploy `apps/api` as the Vercel project. Set these environment variables:
 - `CRON_SECRET`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
-- `STRIPE_PRICE_CLOUD_LITE`
-- `STRIPE_PRICE_CLOUD_PRO`
+- `STRIPE_PRICE_CLOUD_MONTHLY`
 
 Initialize Neon by running `apps/api/db/schema.sql` in the Neon SQL editor before accepting cloud schedules.
 
 ## Stripe
 
-Create two recurring subscription prices:
+Create the recurring subscription product and price:
 
-- Cloud Lite
-- Cloud Pro
+```bash
+npm run setup:stripe
+```
+
+With `STRIPE_SECRET_KEY` set, the script creates or reuses:
+
+- Product: `HypeDCA Cloud`
+- Price: `$9/month`
+- Lookup key: `hypedca_cloud_monthly_9_usd`
+- Included quota: `20` cloud purchases per day
 
 Set the webhook endpoint to:
 
@@ -32,6 +39,8 @@ Subscribe to:
 - `checkout.session.completed`
 - `customer.subscription.updated`
 - `customer.subscription.deleted`
+
+If `HYPEDCA_API_URL` is set when running `npm run setup:stripe`, the script also creates the webhook endpoint and prints the signing secret.
 
 ## Cron
 

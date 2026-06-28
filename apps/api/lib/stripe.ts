@@ -5,7 +5,7 @@ let stripe: Stripe | null = null;
 
 export function getStripe(): Stripe {
   if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY is required.");
-  if (!stripe) stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-02-24.acacia" });
+  if (!stripe) stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2026-06-24.dahlia" });
   return stripe;
 }
 
