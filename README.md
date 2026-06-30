@@ -52,5 +52,6 @@ The production cloud executor is `apps/api/app/api/cron/execute/route.ts`, trigg
 2. Neon project `hypedca` / `withered-wave-39313525` is provisioned and has the schema applied.
 3. Run `npm run setup:stripe` with `STRIPE_SECRET_KEY` set to create the $9/month HypeDCA Cloud product and price.
 4. Set the remaining Stripe environment variables in Vercel production.
-5. Set `VITE_API_BASE_URL` for the extension build.
-6. Run `npm run package -w @hypedca/extension` and upload `release/hypedca-extension.zip` to the Chrome Web Store.
+5. Use `https://hypedca-api.vercel.app/privacy` as the Chrome Web Store privacy policy URL.
+6. Set `VITE_API_BASE_URL` for the extension build.
+7. Run `npm run package -w @hypedca/extension` and upload `release/hypedca-extension.zip` to the Chrome Web Store.

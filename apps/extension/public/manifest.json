@@ -4,7 +4,7 @@
   "description": "Independent recurring trade automation for Hyperliquid.",
   "version": "0.1.0",
   "minimum_chrome_version": "120",
-  "permissions": ["alarms", "notifications", "storage", "sidePanel"],
+  "permissions": ["alarms", "storage", "sidePanel"],
   "host_permissions": ["https://api.hyperliquid.xyz/*", "https://api.hyperliquid-testnet.xyz/*", "http://localhost:8787/*"],
   "action": {
     "default_title": "HypeDCA",

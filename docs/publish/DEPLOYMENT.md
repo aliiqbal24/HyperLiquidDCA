@@ -13,6 +13,7 @@ Current production project:
 
 - Vercel project: `hypedca-api`
 - Production URL: `https://hypedca-api.vercel.app`
+- Privacy policy URL: `https://hypedca-api.vercel.app/privacy`
 - Neon project: `hypedca` / `withered-wave-39313525`
 
 For the Vercel Hobby/free plan, keep `vercel.json` as-is; it runs the cloud executor once per day at 00:00 UTC. Vercel Hobby cron jobs cannot run every minute.

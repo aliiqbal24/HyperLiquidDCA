@@ -14,6 +14,14 @@ release/hypedca-extension.zip
 
 By default the packaging script removes `http://localhost:8787/*` from extension host permissions. Set `HYPEDCA_INCLUDE_LOCALHOST=true` only for local test packages.
 
+## Privacy
+
+Use this URL in the Chrome Web Store privacy policy field:
+
+```txt
+https://hypedca-api.vercel.app/privacy
+```
+
 ## Store Listing Notes
 
 Use clear independent-brand language:
