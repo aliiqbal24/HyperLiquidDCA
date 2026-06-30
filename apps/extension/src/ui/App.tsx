@@ -51,7 +51,7 @@ import {
 
 type View = "home" | "onboarding" | "create" | "history" | "settings";
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8787";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8787/api";
 const apiClient = new HypeDcaApiClient(apiBaseUrl);
 
 export function App() {
@@ -176,7 +176,7 @@ export function App() {
     return (
       <Shell>
         <Header onHome={() => setView("home")} />
-        <SettingsPanel />
+        <SettingsPanel credential={credential} onCredentialSaved={refresh} />
       </Shell>
     );
   }
@@ -689,7 +689,7 @@ function HistoryPanel({ logs }: { logs: ExecutionLog[] }) {
   );
 }
 
-function SettingsPanel() {
+function SettingsPanel({ credential, onCredentialSaved }: { credential: HyperliquidCredential | undefined; onCredentialSaved: () => Promise<void> }) {
   async function openCheckout() {
     const accountId = await apiClient.ensureAccount();
     const url = await apiClient.createCheckout(accountId, globalThis.location.href);
@@ -703,23 +703,89 @@ function SettingsPanel() {
   }
 
   return (
-    <section className="panel form">
+    <div className="settings-stack">
+      <CredentialSettings credential={credential} onSaved={onCredentialSaved} />
+      <section className="panel form">
+        <div className="section-title">
+          <Cloud size={18} />
+          <h2>Cloud execution</h2>
+        </div>
+        <p className="notice">
+          Cloud schedules run from HypeDCA infrastructure on the hosted execution schedule. {HYPEDCA_CLOUD_PLAN.name} is ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/month and includes up to{" "}
+          {HYPEDCA_CLOUD_PLAN.dailyCloudPurchases} cloud purchases per day.
+        </p>
+        <button className="primary full" type="button" onClick={() => void openCheckout()}>
+          Activate Cloud - ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/mo
+        </button>
+        <button className="secondary full" type="button" onClick={() => void openPortal()}>
+          Manage billing
+        </button>
+        <p className="fine-print">Stripe Checkout opens in a new tab. Billing can be canceled or updated from the customer portal.</p>
+      </section>
+    </div>
+  );
+}
+
+function CredentialSettings({ credential, onSaved }: { credential: HyperliquidCredential | undefined; onSaved: () => Promise<void> }) {
+  const [accountAddress, setAccountAddress] = useState(credential?.accountAddress ?? "");
+  const [privateKey, setPrivateKey] = useState(credential?.privateKey ?? "");
+  const [environment, setEnvironment] = useState<"mainnet" | "testnet">(credential?.environment ?? "mainnet");
+  const [status, setStatus] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>();
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    setAccountAddress(credential?.accountAddress ?? "");
+    setPrivateKey(credential?.privateKey ?? "");
+    setEnvironment(credential?.environment ?? "mainnet");
+  }, [credential]);
+
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    setStatus(undefined);
+    setError(undefined);
+    setSaving(true);
+    try {
+      await saveCredential({ accountAddress: accountAddress as `0x${string}`, privateKey: privateKey as `0x${string}`, environment });
+      await onSaved();
+      setStatus("API wallet settings saved.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not save API wallet settings.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <form className="panel form" onSubmit={submit}>
       <div className="section-title">
-        <Cloud size={18} />
-        <h2>Cloud execution</h2>
+        <KeyRound size={18} />
+        <h2>API wallet</h2>
       </div>
-      <p className="notice">
-        Cloud schedules run from HypeDCA infrastructure on the hosted execution schedule. {HYPEDCA_CLOUD_PLAN.name} is ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/month and includes up to{" "}
-        {HYPEDCA_CLOUD_PLAN.dailyCloudPurchases} cloud purchases per day.
-      </p>
-      <button className="primary full" type="button" onClick={() => void openCheckout()}>
-        Activate Cloud - ${HYPEDCA_CLOUD_PLAN.monthlyUsd}/mo
+      <label>
+        Account address
+        <input value={accountAddress} onChange={(event) => setAccountAddress(event.target.value)} placeholder="0x..." required />
+      </label>
+      <label>
+        API wallet private key
+        <input value={privateKey} onChange={(event) => setPrivateKey(event.target.value)} placeholder="0x..." type="password" required />
+      </label>
+      <div className="segmented">
+        <button className={environment === "mainnet" ? "selected" : ""} type="button" onClick={() => setEnvironment("mainnet")}>
+          Mainnet
+        </button>
+        <button className={environment === "testnet" ? "selected" : ""} type="button" onClick={() => setEnvironment("testnet")}>
+          Testnet
+        </button>
+      </div>
+      {status ? <p className="success">{status}</p> : null}
+      {error ? <p className="error">{error}</p> : null}
+      <button className="primary full" type="submit" disabled={saving}>
+        <CheckCircle2 size={18} />
+        {saving ? "Saving..." : "Save API wallet"}
       </button>
-      <button className="secondary full" type="button" onClick={() => void openPortal()}>
-        Manage billing
-      </button>
-      <p className="fine-print">Stripe Checkout opens in a new tab. Billing can be canceled or updated from the customer portal.</p>
-    </section>
+      <p className="fine-print">Use your Hyperliquid account address and the private key for a limited API or agent wallet. Never enter a seed phrase or master private key.</p>
+    </form>
   );
 }
 

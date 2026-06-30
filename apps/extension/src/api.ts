@@ -8,7 +8,11 @@ interface CloudAccount {
 }
 
 export class HypeDcaApiClient {
-  constructor(private readonly baseUrl: string) {}
+  private readonly baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl.replace(/\/$/, "");
+  }
 
   async ensureAccount(): Promise<string> {
     const [existing, token] = await Promise.all([getCloudAccountId(), getCloudAccountToken()]);

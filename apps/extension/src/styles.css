@@ -265,7 +265,8 @@ button:disabled {
 .schedule-list,
 .wizard,
 .form,
-.timeline {
+.timeline,
+.settings-stack {
   display: grid;
   gap: 12px;
 }
@@ -540,6 +541,11 @@ select:focus {
 
 .error {
   color: #ffb3b3;
+  font-size: 13px;
+}
+
+.success {
+  color: #9df7d6;
   font-size: 13px;
 }
 
